@@ -2,11 +2,14 @@
 import pytest
 from fastapi.testclient import TestClient
 from backend.app.main import app
+from backend.app.core.database import Base, engine
 
 
 @pytest.fixture
 def client():
-    return TestClient(app)
+    Base.metadata.create_all(bind=engine)
+    with TestClient(app) as test_client:
+        yield test_client
 
 
 def test_full_ledger_workflow(client):
