@@ -7,7 +7,7 @@
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.119-009688)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.11-3776AB)](https://python.org)
 [![Gnani AI](https://img.shields.io/badge/Gnani_AI-Prisma_STT_%26_Timbre_TTS-orange)](https://vachana.ai)
-[![Design System](https://img.shields.io/badge/Design_System-Mercury_Dark-5266EB)](design.md)
+[![Design System](https://img.shields.io/badge/Design_System-Morgan_Stanley_Institutional-2075CC)](design.md)
 
 ---
 
