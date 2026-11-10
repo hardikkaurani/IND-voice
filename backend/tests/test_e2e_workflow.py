@@ -1,4 +1,4 @@
-"""End-to-end integration test of the full speech-to-ledger workflow."""
+"""End-to-end integration test of the full speech-to-ledger workflow, health checks, and CORS."""
 import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -32,6 +32,28 @@ def client():
     with TestClient(fastapi_app) as test_client:
         yield test_client
     fastapi_app.dependency_overrides.clear()
+
+
+def test_health_check_endpoint(client):
+    """Verifies that the /health endpoint accurately reflects database connectivity."""
+    res = client.get("/health")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["status"] == "healthy"
+    assert "database" in data
+    assert data["database"]["status"] == "connected"
+
+
+def test_cors_preflight_headers(client):
+    """Verifies CORS headers for the production Vercel frontend origin."""
+    headers = {
+        "Origin": "https://ind-voice.vercel.app",
+        "Access-Control-Request-Method": "POST",
+        "Access-Control-Request-Headers": "content-type"
+    }
+    res = client.options("/api/transactions/confirm", headers=headers)
+    assert res.status_code == 200
+    assert res.headers.get("access-control-allow-origin") == "https://ind-voice.vercel.app"
 
 
 def test_full_ledger_workflow(client):
@@ -85,3 +107,12 @@ def test_full_ledger_workflow(client):
     dash_data = dash_res.json()
     assert dash_data["total_customers"] >= 1
     assert len(dash_data["recent_transactions"]) >= 2
+
+    # Step 6: Verify customer directory & individual ledger
+    cust_res = client.get("/api/customers?query=Rahul")
+    assert cust_res.status_code == 200
+    customers = cust_res.json()
+    assert len(customers) == 1
+    rahul = customers[0]
+    # 500.00 credit - 200.00 payment = 300.00 balance
+    assert rahul["current_balance_rupees"] == 300.0

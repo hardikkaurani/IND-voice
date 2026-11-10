@@ -43,10 +43,12 @@ export default function VoiceModal({ isOpen, onClose, onSuccess }: VoiceModalPro
   const [editType, setEditType] = useState<TransactionType>('CREDIT');
   const [editDesc, setEditDesc] = useState('');
 
-  // Confirmation audio playback
+  // Confirmation audio playback and text fallback
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [actionError, setActionError] = useState<string | null>(null);
+  const [confirmationText, setConfirmationText] = useState<string | null>(null);
+  const [confirmedBalance, setConfirmedBalance] = useState<number | null>(null);
 
   // Text fallback input
   const [textInput, setTextInput] = useState('');
@@ -58,6 +60,8 @@ export default function VoiceModal({ isOpen, onClose, onSuccess }: VoiceModalPro
     setActionError(null);
     setAudioUrl(null);
     setTextInput('');
+    setConfirmationText(null);
+    setConfirmedBalance(null);
     onClose();
   }, [cancelRecording, onClose]);
 
@@ -139,6 +143,14 @@ export default function VoiceModal({ isOpen, onClose, onSuccess }: VoiceModalPro
         detected_language: extracted?.language || 'hi-IN',
         idempotency_key: `voice-${Date.now()}-${Math.random().toString(36).substring(7)}`,
       });
+
+      // Build confirmation text statement
+      setConfirmedBalance(res.customer_balance_rupees);
+      if (editType === 'CREDIT') {
+        setConfirmationText(`${editCustomer.trim()} को ₹${amtNum.toFixed(2)} उधार लिख दिए गए हैं। कुल बाकी ₹${res.customer_balance_rupees.toFixed(2)} है।`);
+      } else {
+        setConfirmationText(`${editCustomer.trim()} से ₹${amtNum.toFixed(2)} जमा कर लिए गए हैं। अब बचा हुआ बाकी ₹${res.customer_balance_rupees.toFixed(2)} है।`);
+      }
 
       // Play synthesized audio confirmation if returned
       if (res.voice_confirmation && res.voice_confirmation.audio_base64) {
@@ -465,7 +477,25 @@ export default function VoiceModal({ isOpen, onClose, onSuccess }: VoiceModalPro
               </p>
             </div>
 
-            {audioUrl && (
+            {/* Confirmation Statement Text Card */}
+            {confirmationText && (
+              <div className="rounded border border-[#E5E7EB] bg-[#F8FAFC] p-4 text-left w-full space-y-1.5">
+                <span className="text-[11px] font-medium text-[#5B6472] uppercase tracking-wider block">
+                  Confirmation Statement
+                </span>
+                <p className="text-sm font-medium text-[#000000]">
+                  {confirmationText}
+                </p>
+                {confirmedBalance !== null && (
+                  <p className="text-xs text-[#5B6472]">
+                    Updated Account Balance: <strong className="text-[#000000]">₹{confirmedBalance.toFixed(2)}</strong>
+                  </p>
+                )}
+              </div>
+            )}
+
+            {/* Audio Playback or Fallback Indicator */}
+            {audioUrl ? (
               <div className="flex items-center justify-between rounded border border-[#2075CC]/20 bg-[#2075CC]/5 p-3 text-xs text-[#2075CC] w-full">
                 <div className="flex items-center gap-2">
                   <Volume2 className="h-4 w-4" />
@@ -483,6 +513,10 @@ export default function VoiceModal({ isOpen, onClose, onSuccess }: VoiceModalPro
                   {isPlayingAudio ? 'Playing...' : 'Replay'}
                 </button>
               </div>
+            ) : (
+              <p className="text-[11px] text-[#5B6472] italic">
+                Spoken audio synthesis skipped; transaction successfully confirmed in text.
+              </p>
             )}
 
             <button

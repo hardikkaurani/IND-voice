@@ -5,16 +5,18 @@ from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from app.core.config import settings
-from app.core.database import engine, Base
+from app.core.database import check_database_health
 from app.core.logging import logger
 from app.api import api_router
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("Initializing IND-voice database schema...")
-    Base.metadata.create_all(bind=engine)
-    logger.info("IND-voice backend service started successfully.")
+    is_healthy, driver, err = check_database_health()
+    if is_healthy:
+        logger.info(f"Database connectivity verified ({driver}).")
+    else:
+        logger.warning(f"Database health check failed on startup ({driver}): {err}")
     yield
     logger.info("IND-voice backend service shutting down.")
 
@@ -55,8 +57,28 @@ app.include_router(api_router)
 
 @app.get("/health", tags=["System"])
 def health_check():
+    is_db_healthy, driver, error_msg = check_database_health()
+    if not is_db_healthy:
+        return JSONResponse(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            content={
+                "status": "degraded",
+                "database": {
+                    "status": "disconnected",
+                    "driver": driver,
+                    "error": error_msg
+                },
+                "app": settings.APP_NAME,
+                "environment": settings.ENVIRONMENT,
+                "version": "1.0.0"
+            }
+        )
     return {
         "status": "healthy",
+        "database": {
+            "status": "connected",
+            "driver": driver
+        },
         "app": settings.APP_NAME,
         "environment": settings.ENVIRONMENT,
         "version": "1.0.0"

@@ -65,7 +65,7 @@ class LedgerService:
         # 1. Validation
         if amount_paise <= 0:
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=422,
                 detail="Transaction amount must be greater than zero paise."
             )
 

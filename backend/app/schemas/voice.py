@@ -1,5 +1,5 @@
 """Voice and AI Integration Schemas."""
-from typing import Optional, List
+from typing import Optional
 from pydantic import BaseModel, Field
 from app.models.transaction import TransactionType
 
@@ -11,6 +11,7 @@ class VoiceTranscribeResponse(BaseModel):
     confidence: Optional[float] = None
     processing_time: Optional[float] = None
     request_id: Optional[str] = None
+    error: Optional[str] = None
 
 
 class ExtractedTransaction(BaseModel):
@@ -31,7 +32,7 @@ class ExtractedTransaction(BaseModel):
 class VoiceSynthesisRequest(BaseModel):
     text: str = Field(..., min_length=1, max_length=1000)
     language: str = Field(default="hi-IN")
-    voice: str = Field(default="Avinash")
+    voice: str = Field(default="Kaveri")
     speed: float = Field(default=1.0, ge=0.5, le=2.0)
 
 

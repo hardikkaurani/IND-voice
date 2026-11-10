@@ -11,7 +11,7 @@ from app.schemas.transaction import (
     TransactionConfirmRequest,
     TransactionResponse
 )
-from app.schemas.voice import ExtractedTransaction
+from app.schemas.voice import ExtractedTransaction, VoiceSynthesisResponse
 
 router = APIRouter(prefix="/transactions", tags=["Transactions & Ledger"])
 
@@ -56,14 +56,20 @@ async def confirm_transaction(
     customer = ledger.customer_repo.get_by_id(tx_response.customer_id)
     balance_rupees = customer.current_balance_paise / 100.0 if customer else 0.0
 
-    # Generate voice feedback in Hindi/Indian language
-    tts_result = await voice_service.generate_confirmation_audio(
-        customer_name=tx_response.customer_name or "Customer",
-        transaction_type=tx_response.transaction_type,
-        amount_rupees=tx_response.amount_rupees,
-        remaining_balance_rupees=balance_rupees,
-        language=req.detected_language or "hi-IN"
-    )
+    # Generate voice feedback in Hindi/Indian language (isolated from persistence)
+    try:
+        tts_result = await voice_service.generate_confirmation_audio(
+            customer_name=tx_response.customer_name or "Customer",
+            transaction_type=tx_response.transaction_type,
+            amount_rupees=tx_response.amount_rupees,
+            remaining_balance_rupees=balance_rupees,
+            language=req.detected_language or "hi-IN"
+        )
+    except Exception as exc:
+        tts_result = VoiceSynthesisResponse(
+            success=False,
+            error=f"Voice synthesis failed: {str(exc)}"
+        )
 
     return {
         "transaction": tx_response.model_dump(),
