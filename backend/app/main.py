@@ -1,4 +1,5 @@
-"""IND-voice FastAPI Application Entrypoint."""
+"""IND-voice FastAPI Application Entrypoint with Security Headers and Observability."""
+import time
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -33,6 +34,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.middleware("http")
+async def add_security_and_latency_headers(request: Request, call_next):
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    
+    # Security audit headers
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    response.headers["X-Frame-Options"] = "DENY"
+    response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["X-Process-Time"] = f"{process_time:.4f}s"
+    return response
+
 
 app.include_router(api_router)
 
