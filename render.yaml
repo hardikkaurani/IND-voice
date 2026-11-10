@@ -1,0 +1,33 @@
+services:
+  # IND-voice FastAPI Backend Service
+  - type: web
+    name: ind-voice-api
+    runtime: python
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ind-voice-db
+          property: connectionString
+      - key: CORS_ORIGINS
+        value: '["https://ind-voice.vercel.app","http://localhost:3000"]'
+      - key: GNANI_API_KEY
+        sync: false
+      - key: GNANI_BASE_URL
+        value: https://api.vachana.ai
+
+databases:
+  # Render PostgreSQL Database for persistent ledger storage
+  - name: ind-voice-db
+    databaseName: ind_voice
+    user: ind_voice_user
+    plan: free
