@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+:root {
+  --background: #171721;
+  --foreground: #EDEDF3;
+  --surface: #20202D;
+  --surface-hover: #282838;
+  --border: #374151;
+  --primary: #5266EB;
+  --primary-strong: #4055E6;
+  --muted: #70707D;
+  --error: #EF4444;
+  --success: #10B981;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-muted: var(--muted);
+  --color-error: var(--error);
+  --color-success: var(--success);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #171721;
+}
+::-webkit-scrollbar-thumb {
+  background: #374151;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5266EB;
+}
+
+/* Audio wave pulse animation */
+@keyframes soundwave {
+  0%, 100% {
+    height: 6px;
+  }
+  50% {
+    height: 32px;
+  }
+}
+
+.wave-bar {
+  animation: soundwave 1.2s ease-in-out infinite;
+}
