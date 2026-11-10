@@ -67,7 +67,7 @@ export function useAudioRecorder(maxDurationSeconds: number = 60) {
 
       try {
         mediaRecorderRef.current.stop();
-      } catch (e) {
+      } catch {
         stopTracks();
         setStatus('error');
         setErrorMessage('Failed to finalize audio recording.');

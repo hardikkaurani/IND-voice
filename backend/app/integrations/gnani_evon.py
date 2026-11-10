@@ -6,8 +6,8 @@ or Hugging Face Dedicated Endpoints), it conforms to an OpenAI-compatible API sc
 """
 from typing import Optional, Dict, Any
 import httpx
-from backend.app.core.config import settings
-from backend.app.core.logging import logger
+from app.core.config import settings
+from app.core.logging import logger
 
 
 class GnaniEvonClient:

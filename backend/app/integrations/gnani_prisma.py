@@ -3,9 +3,9 @@ import io
 import uuid
 import httpx
 from typing import Optional, Dict, Any
-from backend.app.core.config import settings
-from backend.app.core.logging import logger
-from backend.app.schemas.voice import VoiceTranscribeResponse
+from app.core.config import settings
+from app.core.logging import logger
+from app.schemas.voice import VoiceTranscribeResponse
 
 
 class GnaniPrismaClient:

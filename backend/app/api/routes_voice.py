@@ -1,7 +1,7 @@
 """Voice API endpoints."""
 from fastapi import APIRouter, UploadFile, File, Form, Depends, HTTPException
-from backend.app.services.voice_service import VoiceService
-from backend.app.schemas.voice import (
+from app.services.voice_service import VoiceService
+from app.schemas.voice import (
     VoiceTranscribeResponse,
     ExtractedTransaction,
     VoiceSynthesisRequest,

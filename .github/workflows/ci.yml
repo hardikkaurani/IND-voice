@@ -26,7 +26,7 @@ jobs:
 
       - name: Run Backend Tests
         env:
-          GNANI_API_KEY: ${{ secrets.GNANI_API_KEY || 'vach_1ytE2CY5X2PpTSkjUGV8kLW9KIHYQyCNYAPKS31WjE32KBAvotI9UTwi4PwPRvadmUJMjyeZstmsiHn8jpAeYnwHHftXoyiu_c33505d73045cfb8a72723c706a18da5' }}
+          GNANI_API_KEY: ${{ secrets.GNANI_API_KEY || '' }}
         run: |
           pytest backend/tests/ -v
 

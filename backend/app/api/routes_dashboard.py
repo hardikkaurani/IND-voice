@@ -1,9 +1,9 @@
 """Dashboard metrics API endpoints."""
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from backend.app.core.database import get_db
-from backend.app.services.dashboard_service import DashboardService
-from backend.app.schemas.dashboard import DashboardSummaryResponse
+from app.core.database import get_db
+from app.services.dashboard_service import DashboardService
+from app.schemas.dashboard import DashboardSummaryResponse
 
 router = APIRouter(prefix="/dashboard", tags=["Dashboard & Analytics"])
 

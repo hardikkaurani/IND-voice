@@ -1,15 +1,37 @@
 """End-to-end integration test of the full speech-to-ledger workflow."""
 import pytest
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
 from fastapi.testclient import TestClient
-from backend.app.main import app
-from backend.app.core.database import Base, engine
+from app.main import app as fastapi_app
+from app.core.database import Base, get_db
+import app.models.customer  # noqa: F401
+import app.models.transaction  # noqa: F401
+import app.models.audit  # noqa: F401
 
 
 @pytest.fixture
 def client():
-    Base.metadata.create_all(bind=engine)
-    with TestClient(app) as test_client:
+    test_engine = create_engine(
+        "sqlite:///:memory:",
+        connect_args={"check_same_thread": False},
+        poolclass=StaticPool
+    )
+    Base.metadata.create_all(bind=test_engine)
+    TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=test_engine)
+
+    def override_get_db():
+        db = TestingSessionLocal()
+        try:
+            yield db
+        finally:
+            db.close()
+
+    fastapi_app.dependency_overrides[get_db] = override_get_db
+    with TestClient(fastapi_app) as test_client:
         yield test_client
+    fastapi_app.dependency_overrides.clear()
 
 
 def test_full_ledger_workflow(client):

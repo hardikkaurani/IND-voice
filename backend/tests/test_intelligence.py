@@ -1,7 +1,7 @@
 """Tests for Transaction Intelligence speech parsing."""
 import pytest
-from backend.app.services.intelligence_service import TransactionIntelligenceService
-from backend.app.models.transaction import TransactionType
+from app.services.intelligence_service import TransactionIntelligenceService
+from app.models.transaction import TransactionType
 
 
 @pytest.fixture

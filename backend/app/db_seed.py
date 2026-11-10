@@ -1,8 +1,8 @@
 """Database Seeder with realistic Kirana merchant transactions."""
-from backend.app.core.database import SessionLocal, Base, engine
-from backend.app.models.transaction import TransactionType, TransactionSource
-from backend.app.services.ledger_service import LedgerService
-from backend.app.core.logging import logger
+from app.core.database import SessionLocal, Base, engine
+from app.models.transaction import TransactionType, TransactionSource
+from app.services.ledger_service import LedgerService
+from app.core.logging import logger
 
 def seed_demo_data():
     logger.info("Seeding realistic Kirana shopkeeper demo data...")

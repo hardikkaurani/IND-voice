@@ -3,7 +3,7 @@ from datetime import datetime, timezone, time
 from typing import List, Optional, Tuple
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from backend.app.models.transaction import Transaction, TransactionType
+from app.models.transaction import Transaction, TransactionType
 
 
 class TransactionRepository:

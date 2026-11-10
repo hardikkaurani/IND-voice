@@ -33,8 +33,8 @@ class Settings(BaseSettings):
                 return [origin.strip() for origin in v.split(",") if origin.strip()]
         return v
 
-    # Gnani AI (Vachana Platform)
-    GNANI_API_KEY: str = "vach_1ytE2CY5X2PpTSkjUGV8kLW9KIHYQyCNYAPKS31WjE32KBAvotI9UTwi4PwPRvadmUJMjyeZstmsiHn8jpAeYnwHHftXoyiu_c33505d73045cfb8a72723c706a18da5"
+    # Gnani AI (Vachana Platform) - Read exclusively from GNANI_API_KEY env var
+    GNANI_API_KEY: str = ""
     GNANI_BASE_URL: str = "https://api.vachana.ai"
     GNANI_TIMEOUT_SECONDS: float = 30.0
 

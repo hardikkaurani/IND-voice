@@ -1,10 +1,10 @@
 """Transaction Intelligence Service for multilingual natural speech parsing."""
 import re
 from typing import Optional, Dict, Tuple, Any
-from backend.app.models.transaction import TransactionType
-from backend.app.schemas.voice import ExtractedTransaction
-from backend.app.integrations.gnani_evon import GnaniEvonClient
-from backend.app.core.logging import logger
+from app.models.transaction import TransactionType
+from app.schemas.voice import ExtractedTransaction
+from app.integrations.gnani_evon import GnaniEvonClient
+from app.core.logging import logger
 
 # Number word maps for Hindi / Hinglish / Marathi / English
 UNITS = {

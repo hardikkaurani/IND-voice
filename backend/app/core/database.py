@@ -1,8 +1,8 @@
 """Database engine, session management and Base."""
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import sessionmaker, declarative_base
-from backend.app.core.config import settings
-from backend.app.core.logging import logger
+from app.core.config import settings
+from app.core.logging import logger
 
 database_url = settings.DATABASE_URL
 

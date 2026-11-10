@@ -3,7 +3,7 @@ from datetime import datetime
 from decimal import Decimal
 from typing import Optional
 from pydantic import BaseModel, Field, field_validator, ConfigDict
-from backend.app.models.transaction import TransactionType, TransactionSource
+from app.models.transaction import TransactionType, TransactionSource
 
 
 class TransactionBase(BaseModel):

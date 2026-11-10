@@ -1,17 +1,17 @@
 """Voice Service orchestrating audio processing, STT, intelligence and TTS synthesis."""
 from typing import Optional, Tuple
 from fastapi import UploadFile, HTTPException, status
-from backend.app.core.config import settings
-from backend.app.core.logging import logger
-from backend.app.integrations.gnani_prisma import GnaniPrismaClient
-from backend.app.integrations.gnani_timbre import GnaniTimbreClient
-from backend.app.services.intelligence_service import TransactionIntelligenceService
-from backend.app.schemas.voice import (
+from app.core.config import settings
+from app.core.logging import logger
+from app.integrations.gnani_prisma import GnaniPrismaClient
+from app.integrations.gnani_timbre import GnaniTimbreClient
+from app.services.intelligence_service import TransactionIntelligenceService
+from app.schemas.voice import (
     VoiceTranscribeResponse,
     ExtractedTransaction,
     VoiceSynthesisResponse
 )
-from backend.app.models.transaction import TransactionType
+from app.models.transaction import TransactionType
 
 
 class VoiceService:

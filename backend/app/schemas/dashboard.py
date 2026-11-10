@@ -1,8 +1,8 @@
 """Dashboard metrics schemas."""
 from typing import List
 from pydantic import BaseModel
-from backend.app.schemas.customer import CustomerResponse
-from backend.app.schemas.transaction import TransactionResponse
+from app.schemas.customer import CustomerResponse
+from app.schemas.transaction import TransactionResponse
 
 
 class DashboardSummaryResponse(BaseModel):

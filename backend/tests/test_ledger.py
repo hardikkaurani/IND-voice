@@ -3,10 +3,10 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from fastapi import HTTPException
-from backend.app.core.database import Base
-from backend.app.models.transaction import TransactionType
-from backend.app.services.ledger_service import LedgerService
-from backend.app.schemas.transaction import TransactionConfirmRequest
+from app.core.database import Base
+from app.models.transaction import TransactionType
+from app.services.ledger_service import LedgerService
+from app.schemas.transaction import TransactionConfirmRequest
 
 
 @pytest.fixture

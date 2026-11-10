@@ -4,9 +4,9 @@ import wave
 import base64
 import httpx
 from typing import Optional, Dict, Any, Tuple
-from backend.app.core.config import settings
-from backend.app.core.logging import logger
-from backend.app.schemas.voice import VoiceSynthesisResponse
+from app.core.config import settings
+from app.core.logging import logger
+from app.schemas.voice import VoiceSynthesisResponse
 
 
 class GnaniTimbreClient:

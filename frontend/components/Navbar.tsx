@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Mic, BookOpen, Users, LogOut, CheckCircle2 } from 'lucide-react';
+import { Mic, LogOut } from 'lucide-react';
 
 interface NavbarProps {
   onOpenVoiceModal?: () => void;
@@ -16,12 +16,12 @@ export default function Navbar({ onOpenVoiceModal, onLogout, isLoggedIn = true }
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-[#374151] bg-[#171721]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-[#E5E7EB] bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         
         {/* Brand & Logo */}
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="relative h-10 w-10 overflow-hidden rounded-full border border-[#374151] shadow-sm transition-transform group-hover:scale-105">
+          <div className="relative h-10 w-10 overflow-hidden rounded-full border border-[#E5E7EB] shadow-sm transition-transform group-hover:scale-105">
             <Image
               src="/logo.jpg"
               alt="IND-voice Logo"
@@ -32,12 +32,12 @@ export default function Navbar({ onOpenVoiceModal, onLogout, isLoggedIn = true }
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-lg font-bold tracking-tight text-[#EDEDF3]">IND-voice</span>
-              <span className="rounded-full bg-[#5266EB]/20 px-2 py-0.5 text-[10px] font-medium text-[#5266EB] border border-[#5266EB]/30">
-                Fintech
+              <span className="text-lg font-normal tracking-tight text-[#000000]">IND-voice</span>
+              <span className="rounded bg-[#2075CC]/10 px-2 py-0.5 text-[10px] font-semibold text-[#2075CC] border border-[#2075CC]/20">
+                Institutional
               </span>
             </div>
-            <p className="text-xs text-[#70707D] hidden sm:block">बोल कर लिखो — Voice Ledger</p>
+            <p className="text-xs text-[#5B6472] hidden sm:block">बोल कर लिखो — Voice Ledger</p>
           </div>
         </Link>
 
@@ -46,33 +46,33 @@ export default function Navbar({ onOpenVoiceModal, onLogout, isLoggedIn = true }
           <nav className="hidden md:flex items-center gap-1">
             <Link
               href="/"
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded px-4 py-2 text-sm font-medium transition-colors ${
                 pathname === '/'
-                  ? 'bg-[#20202D] text-[#EDEDF3] border border-[#374151]'
-                  : 'text-[#70707D] hover:text-[#EDEDF3] hover:bg-[#20202D]/50'
+                  ? 'bg-[#F1F5F9] text-[#2075CC]'
+                  : 'text-[#5B6472] hover:text-[#000000] hover:bg-[#F8FAFC]'
               }`}
             >
               Dashboard
             </Link>
             <Link
               href="/customers"
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded px-4 py-2 text-sm font-medium transition-colors ${
                 pathname === '/customers'
-                  ? 'bg-[#20202D] text-[#EDEDF3] border border-[#374151]'
-                  : 'text-[#70707D] hover:text-[#EDEDF3] hover:bg-[#20202D]/50'
+                  ? 'bg-[#F1F5F9] text-[#2075CC]'
+                  : 'text-[#5B6472] hover:text-[#000000] hover:bg-[#F8FAFC]'
               }`}
             >
-              Customers
+              Customers (खाता)
             </Link>
             <Link
               href="/history"
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
+              className={`rounded px-4 py-2 text-sm font-medium transition-colors ${
                 pathname === '/history'
-                  ? 'bg-[#20202D] text-[#EDEDF3] border border-[#374151]'
-                  : 'text-[#70707D] hover:text-[#EDEDF3] hover:bg-[#20202D]/50'
+                  ? 'bg-[#F1F5F9] text-[#2075CC]'
+                  : 'text-[#5B6472] hover:text-[#000000] hover:bg-[#F8FAFC]'
               }`}
             >
-              Transactions
+              Transactions (लेन-देन)
             </Link>
           </nav>
         )}
@@ -82,7 +82,7 @@ export default function Navbar({ onOpenVoiceModal, onLogout, isLoggedIn = true }
           {isLoggedIn && onOpenVoiceModal && (
             <button
               onClick={onOpenVoiceModal}
-              className="flex items-center gap-2 rounded-full bg-[#5266EB] hover:bg-[#4055E6] text-[#EDEDF3] px-4 py-2 text-sm font-medium transition-all shadow-md active:scale-95"
+              className="flex items-center gap-2 rounded bg-[#2075CC] hover:bg-[#115AA4] text-white px-4 py-2.5 text-sm font-medium transition-colors shadow-sm active:scale-[0.98]"
             >
               <Mic className="h-4 w-4" />
               <span className="hidden sm:inline">Speak Transaction</span>
@@ -93,8 +93,8 @@ export default function Navbar({ onOpenVoiceModal, onLogout, isLoggedIn = true }
           {isLoggedIn && onLogout && (
             <button
               onClick={onLogout}
-              title="Logout"
-              className="rounded-full p-2 text-[#70707D] hover:text-[#EDEDF3] hover:bg-[#20202D] transition-colors"
+              title="Sign Out"
+              className="rounded p-2 text-[#5B6472] hover:text-[#000000] hover:bg-[#F1F5F9] transition-colors"
             >
               <LogOut className="h-4 w-4" />
             </button>

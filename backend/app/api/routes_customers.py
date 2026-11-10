@@ -2,11 +2,11 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, Query, Path
 from sqlalchemy.orm import Session
-from backend.app.core.database import get_db
-from backend.app.services.customer_service import CustomerService
-from backend.app.services.ledger_service import LedgerService
-from backend.app.schemas.customer import CustomerCreate, CustomerUpdate, CustomerResponse
-from backend.app.schemas.transaction import TransactionResponse
+from app.core.database import get_db
+from app.services.customer_service import CustomerService
+from app.services.ledger_service import LedgerService
+from app.schemas.customer import CustomerCreate, CustomerUpdate, CustomerResponse
+from app.schemas.transaction import TransactionResponse
 
 router = APIRouter(prefix="/customers", tags=["Customers"])
 

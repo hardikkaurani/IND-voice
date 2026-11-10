@@ -18,7 +18,7 @@ This guide outlines step-by-step instructions to deploy IND-voice to production 
 In the Render dashboard for `ind-voice-api`:
 1. Navigate to **Environment**.
 2. Add the secret key:
-   * `GNANI_API_KEY`: `vach_1ytE2CY5X2PpTSkjUGV8kLW9KIHYQyCNYAPKS31WjE32KBAvotI9UTwi4PwPRvadmUJMjyeZstmsiHn8jpAeYnwHHftXoyiu_c33505d73045cfb8a72723c706a18da5`
+   * `GNANI_API_KEY`: `<your_gnani_vachana_api_key>`
 3. Click **Save Changes** and trigger deploy.
 
 ---

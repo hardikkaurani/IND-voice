@@ -2,9 +2,9 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from backend.app.models.customer import Customer
-from backend.app.repositories.customer_repo import CustomerRepository
-from backend.app.schemas.customer import CustomerCreate, CustomerUpdate, CustomerResponse
+from app.models.customer import Customer
+from app.repositories.customer_repo import CustomerRepository
+from app.schemas.customer import CustomerCreate, CustomerUpdate, CustomerResponse
 
 
 class CustomerService:

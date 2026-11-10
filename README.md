@@ -118,17 +118,20 @@ backend\.venv\Scripts\activate
 # Activate virtual environment (Linux/macOS):
 source backend/.venv/bin/activate
 
+# Navigate to backend directory
+cd backend
+
 # Install dependencies
-pip install -r backend/requirements.txt
+pip install -r requirements.txt
 
 # Seed initial Kirana demo data
-python -m backend.app.db_seed
+python -m app.db_seed
 
 # Run tests
-pytest backend/tests/ -v
+pytest tests/ -v
 
-# Start FastAPI server
-uvicorn backend.app.main:app --reload --port 8000
+# Start FastAPI server (matching Render configuration)
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ```
 Backend will be live at: `http://localhost:8000` (Swagger UI at `/docs`).
 

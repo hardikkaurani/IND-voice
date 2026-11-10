@@ -1,10 +1,10 @@
 """Dashboard analytics and metrics service."""
 from sqlalchemy.orm import Session
-from backend.app.repositories.customer_repo import CustomerRepository
-from backend.app.repositories.transaction_repo import TransactionRepository
-from backend.app.services.customer_service import CustomerService
-from backend.app.services.ledger_service import LedgerService
-from backend.app.schemas.dashboard import DashboardSummaryResponse
+from app.repositories.customer_repo import CustomerRepository
+from app.repositories.transaction_repo import TransactionRepository
+from app.services.customer_service import CustomerService
+from app.services.ledger_service import LedgerService
+from app.schemas.dashboard import DashboardSummaryResponse
 
 
 class DashboardService:

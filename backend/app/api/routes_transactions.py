@@ -2,16 +2,16 @@
 from typing import List, Optional
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.orm import Session
-from backend.app.core.database import get_db
-from backend.app.services.ledger_service import LedgerService
-from backend.app.services.intelligence_service import TransactionIntelligenceService
-from backend.app.services.voice_service import VoiceService
-from backend.app.schemas.transaction import (
+from app.core.database import get_db
+from app.services.ledger_service import LedgerService
+from app.services.intelligence_service import TransactionIntelligenceService
+from app.services.voice_service import VoiceService
+from app.schemas.transaction import (
     TransactionCreate,
     TransactionConfirmRequest,
     TransactionResponse
 )
-from backend.app.schemas.voice import ExtractedTransaction
+from app.schemas.voice import ExtractedTransaction
 
 router = APIRouter(prefix="/transactions", tags=["Transactions & Ledger"])
 

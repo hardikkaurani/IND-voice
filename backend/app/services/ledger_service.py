@@ -3,13 +3,13 @@ import json
 from typing import Optional, List
 from sqlalchemy.orm import Session
 from fastapi import HTTPException, status
-from backend.app.core.logging import logger
-from backend.app.models.customer import Customer
-from backend.app.models.transaction import Transaction, TransactionType, TransactionSource
-from backend.app.models.audit import AuditLog
-from backend.app.repositories.customer_repo import CustomerRepository
-from backend.app.repositories.transaction_repo import TransactionRepository
-from backend.app.schemas.transaction import (
+from app.core.logging import logger
+from app.models.customer import Customer
+from app.models.transaction import Transaction, TransactionType, TransactionSource
+from app.models.audit import AuditLog
+from app.repositories.customer_repo import CustomerRepository
+from app.repositories.transaction_repo import TransactionRepository
+from app.schemas.transaction import (
     TransactionCreate,
     TransactionConfirmRequest,
     TransactionResponse

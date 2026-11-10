@@ -1,7 +1,7 @@
 """Voice and AI Integration Schemas."""
 from typing import Optional, List
 from pydantic import BaseModel, Field
-from backend.app.models.transaction import TransactionType
+from app.models.transaction import TransactionType
 
 
 class VoiceTranscribeResponse(BaseModel):

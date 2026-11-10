@@ -2,8 +2,8 @@
 from typing import List, Optional
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from backend.app.models.customer import Customer
-from backend.app.models.transaction import Transaction, TransactionType
+from app.models.customer import Customer
+from app.models.transaction import Transaction, TransactionType
 
 
 class CustomerRepository:
